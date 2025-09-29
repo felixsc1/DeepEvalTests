@@ -1,0 +1,16 @@
+deepeval
+ipykernel
+python-dotenv
+langchain
+langchain-ollama
+langchain-community
+pandas
+langchain-text-splitters
+chromadb
+tiktoken
+tkdm
+ipywidgets
+matplotlib
+scipy
+numpy
+scikit-learn
