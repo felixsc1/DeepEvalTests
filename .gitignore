@@ -5,3 +5,4 @@
 /raw_documents
 /.vector_db
 /.deepeval
+/chroma_db
