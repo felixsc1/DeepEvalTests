@@ -68,7 +68,7 @@ def compute_text_similarities(questions, similarity_threshold=0.8):
 def load_and_filter_data(quality_cutoff=0.8):
     """Load data and filter by quality"""
     print("Loading synthetic dataset...")
-    with open("synthetic_dataset_with_urls.json", "r") as f:
+    with open("multicontext_goldens.json", "r") as f:
         data = json.load(f)
 
     print(f"Total entries: {len(data)}")
@@ -391,15 +391,21 @@ def main():
     final_qualities = [
         entry["additional_metadata"]["synthetic_input_quality"] for entry in kept_data
     ]
-    final_context_qualities = [
-        entry["additional_metadata"]["context_quality"] for entry in kept_data
-    ]
 
     print("\nFinal dataset statistics:")
     print(f"  Questions: {len(kept_data)}")
     print(f"  Avg input quality: {np.mean(final_qualities):.3f}")
-    print(f"  Avg context quality: {np.mean(final_context_qualities):.3f}")
     print(f"  Quality range: {min(final_qualities):.3f} - {max(final_qualities):.3f}")
+
+    # Check if context_quality is available and show statistics if it is
+    if kept_data and "context_quality" in kept_data[0]["additional_metadata"]:
+        final_context_qualities = [
+            entry["additional_metadata"]["context_quality"] for entry in kept_data
+        ]
+        print(f"  Avg context quality: {np.mean(final_context_qualities):.3f}")
+        print(f"  Context quality range: {min(final_context_qualities):.3f} - {max(final_context_qualities):.3f}")
+    else:
+        print("  Context quality: Not available in this dataset")
 
     print("\n=== Analysis Complete ===")
 
